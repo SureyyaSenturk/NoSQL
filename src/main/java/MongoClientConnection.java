@@ -2,11 +2,9 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import entity.Dersogrenci;
 import org.bson.Document;
-import service.DersService;
-import service.KonuService;
-import service.OgrenciService;
-import service.OgretmenService;
+import service.*;
 
 public class MongoClientConnection {
 
@@ -16,6 +14,7 @@ public class MongoClientConnection {
             MongoDatabase database=mongoClient.getDatabase("mongoÖrneği");
             MongoCollection<Document> collection=database.getCollection("ders");
             DersService dersService=new DersService();
+            dersService.getDers(collection);
             dersService.addDers(collection);
             KonuService konuService=new KonuService();
             konuService.addKonu(collection);
@@ -23,6 +22,9 @@ public class MongoClientConnection {
             ogrenciService.addOgrenci(collection);
             OgretmenService ogretmenService=new OgretmenService();
             ogretmenService.addOgretmen(collection);
+            DersOgrenciService dersOgrenciService=new DersOgrenciService();
+            dersOgrenciService.addDevamsizlik(collection);
+
 
 
         }
